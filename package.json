@@ -1,0 +1,24 @@
+{
+  "name": "document-cookie-wathcer",
+  "version": "1.0.0",
+  "description": "",
+  "main": "dcw.js",
+  "scripts": {
+    "clean": "rm -rf ./dist/*",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "npm run clean && npm run dev:parcel",
+    "dev:parcel": "parcel ./src/index.html",
+    "build": "npm run clean && npm run build:parcel",
+    "build:parcel": "parcel build ./src/dcw.js"
+  },
+  "author": "tkmtdg <tkmtdg@gmail.com>",
+  "license": "MIT",
+  "dependencies": {
+    "lodash": "^4.17.11",
+    "set-cookie-parser": "^2.3.5"
+  },
+  "devDependencies": {
+    "eslint": "^5.16.0",
+    "parcel": "^1.12.3"
+  }
+}
