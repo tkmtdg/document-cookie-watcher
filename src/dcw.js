@@ -1,3 +1,4 @@
+import EventTarget from '@ungap/event-target';
 import throttle from 'lodash.throttle';
 
 class DocumentCookieWatcher extends EventTarget {
@@ -24,8 +25,16 @@ class DocumentCookieWatcher extends EventTarget {
       trailing: trailing
     });
     this.addEventListener('DocumentCookieSet', (e) => {
-      this.log('DocumentCookieSet:', e.detail);
+      this.log('DocumentCookieSet event', e.detail);
       onDocumentCookieSet(this, e);
+    });
+    this.log('created', {
+      descriptor: this.descriptor,
+      debug: this.debug,
+      handler: this.handler,
+      interval: this.interval,
+      leading: this.leading,
+      trailing: this.trailing,
     });
   }
 
@@ -58,7 +67,7 @@ class DocumentCookieWatcher extends EventTarget {
       },
       set: (value) => {
         this.descriptor.set.call(document, value);
-        this.log('document.cookie set:', value);
+        this.log('document.cookie set', value);
         this.rawCookies.push(value);
         this.dispatchEvent(new CustomEvent('DocumentCookieSet', {
           detail: {
@@ -69,6 +78,7 @@ class DocumentCookieWatcher extends EventTarget {
     });
 
     this.enabled = true;
+    this.log('enabled');
   }
 
   disable() {
@@ -94,11 +104,13 @@ class DocumentCookieWatcher extends EventTarget {
     });
 
     this.enabled = false;
+    this.log('disabled');
   }
 
   flush() {
     const rawCookies = this.rawCookies;
     this.rawCookies = [];
+    this.log('flush', rawCookies);
     return {
       rawCookies: rawCookies,
     };
