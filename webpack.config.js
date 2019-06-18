@@ -24,64 +24,122 @@ const path = require('path');
 
 const UglifyJSPlugin = require('uglifyjs-webpack-plugin');
 
-module.exports = {
+module.exports = [{
     entry: {
-        dcw: './src/dcw.js'
+      dcw: './src/dcw.js'
     },
-	module: {
-		rules: [
-			{
-				include: [path.resolve(__dirname, 'src')],
-				loader: 'babel-loader',
+    module: {
+      rules: [{
+        include: [path.resolve(__dirname, 'src')],
+        loader: 'babel-loader',
 
-				options: {
-					plugins: ['syntax-dynamic-import'],
+        options: {
+          plugins: ['syntax-dynamic-import'],
 
-					presets: [
-						[
-							'@babel/preset-env',
-							{
-								corejs: 2,
-								targets: [
-									'iOS >= 12.1',
-									'Safari >= 12.1',
-								],
-								useBuiltIns: 'usage',
-								modules: false
-							}
-						]
-					]
-				},
+          presets: [
+            [
+              '@babel/preset-env',
+              {
+                corejs: 2,
+                targets: [
+                  'iOS >= 12.1',
+                  'Safari >= 12.1',
+                ],
+                useBuiltIns: 'usage',
+                modules: false
+              }
+            ]
+          ]
+        },
 
-				test: /\.js$/
-			}
-		]
-	},
+        test: /\.js$/
+      }]
+    },
 
-	output: {
-		library: 'DocumentCookieWatcher',
-		libraryTarget: 'var',
-		libraryExport: 'default',
-		chunkFilename: '[name].[chunkhash].js',
-		filename: '[name].js',
-		path: path.resolve(__dirname, 'dist')
-	},
+    output: {
+      library: 'DocumentCookieWatcher',
+      libraryTarget: 'var',
+      libraryExport: 'default',
+      chunkFilename: '[name].[chunkhash].js',
+      filename: '[name].js',
+      path: path.resolve(__dirname, 'dist')
+    },
 
-	mode: 'production',
+    mode: 'production',
 
-	optimization: {
-		splitChunks: {
-			cacheGroups: {
-				vendors: {
-					priority: -10,
-					test: /[\\/]node_modules[\\/]/
-				}
-			},
+    optimization: {
+      splitChunks: {
+        cacheGroups: {
+          vendors: {
+            priority: -10,
+            test: /[\\/]node_modules[\\/]/
+          }
+        },
 
-			chunks: 'async',
-			minChunks: 1,
-			minSize: 30000,
-			name: true
-		}
-	}
-};
+        chunks: 'async',
+        minChunks: 1,
+        minSize: 30000,
+        name: true
+      }
+    }
+  },
+  {
+    entry: {
+      itptd: './src/itptd.js',
+    },
+    module: {
+      rules: [{
+        include: [path.resolve(__dirname, 'src')],
+        loader: 'babel-loader',
+
+        options: {
+          plugins: ['syntax-dynamic-import'],
+
+          presets: [
+            [
+              '@babel/preset-env',
+              {
+                corejs: 2,
+                targets: [
+                  'iOS >= 12.1',
+                  'Safari >= 12.1',
+                ],
+                useBuiltIns: 'usage',
+                modules: false
+              }
+            ]
+          ]
+        },
+
+        test: /\.js$/
+      }]
+    },
+
+    output: {
+      library: 'ITPTargetDetector',
+      libraryTarget: 'var',
+      libraryExport: 'default',
+      chunkFilename: '[name].[chunkhash].js',
+      filename: '[name].js',
+      path: path.resolve(__dirname, 'dist')
+    },
+
+    mode: 'production',
+
+    optimization: {
+      splitChunks: {
+        cacheGroups: {
+          vendors: {
+            priority: -10,
+            test: /[\\/]node_modules[\\/]/
+          }
+        },
+
+        chunks: 'async',
+        minChunks: 1,
+        minSize: 30000,
+        name: true
+      }
+    }
+  }
+];
