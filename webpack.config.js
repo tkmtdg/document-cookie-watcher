@@ -99,11 +99,10 @@ module.exports = [{
             [
               '@babel/preset-env',
               {
-                corejs: 2,
-                targets: [
-                  'iOS >= 12.1',
-                  'Safari >= 12.1',
-                ],
+                corejs: 3,
+                targets: {
+                  browsers: '> 5%'
+                },
                 useBuiltIns: 'usage',
                 modules: false
               }
