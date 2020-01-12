@@ -14,4 +14,9 @@ for name in "${names[@]}" ; do
   | sed '1s/^/eval(/' \
   | sed '$s/.$/);/' \
   > "./dist/"${name}".gtm.js"
+  if [ "${name}" = "dcw" ]; then
+    echo "global.DocumentCookieWatcher = DocumentCookieWatcher;" >> "./dist/"${name}".gtm.js"
+  else
+    echo "global.ITPTargetDetector = ITPTargetDetector;" >> "./dist/"${name}".gtm.js"
+  fi
 done

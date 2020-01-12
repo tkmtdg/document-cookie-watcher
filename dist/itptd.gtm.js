@@ -11,17 +11,21 @@ eval('var ITPTargetDetector=function(t){var r={};function e(n){if(r[n])return r[
 'lace(/\\+.*$/,""),i=(e="-",-1===(r=n).indexOf(e)?r.length:r.indexOf(e)),o=n.substring(0,i).split(".");return o.push(n.sub'+
 'string(i+1)),o}function e(t){return isNaN(Number(t))?t:Number(t)}function n(r){if("string"!=typeof r)throw new TypeError'+
 '("Invalid argument expected string");if(!t.test(r))throw new Error("Invalid argument not valid semver (\'"+r+"\' received)'+
-'")}return function(t,i){[t,i].forEach(n);for(var o=r(t),a=r(i),s=0;s<Math.max(o.length-1,a.length-1);s++){var u=parseInt'+
-'(o[s]||0,10),f=parseInt(a[s]||0,10);if(u>f)return 1;if(f>u)return-1}var c=o[o.length-1],l=a[a.length-1];if(c&&l){var p=c'+
-'.split(".").map(e),d=l.split(".").map(e);for(s=0;s<Math.max(p.length,d.length);s++){if(void 0===p[s]||"string"==typeof d'+
-'[s]&&"number"==typeof p[s])return-1;if(void 0===d[s]||"string"==typeof p[s]&&"number"==typeof d[s])return 1;if(p[s]>d[s]'+
-')return 1;if(d[s]>p[s])return-1}}else if(c||l)return c?-1:1;return 0}})?n.apply(r,i):n)||(t.exports=o)},function(t,r,e){'+
-'"use strict";e.r(r);var n=e(0);r.default=class{static getFirstMatch(t,r){if("string"!=typeof r)return"";const e=r.match('+
-'t);return e&&e.length>0&&e[1]||""}static getTargetPlatform(t){const r={isIOS:!1,isMac:!1,osVersion:null,isSafari:!1,safa'+
-'riVersion:null};return"string"!=typeof t?r:(/macintosh/i.test(t)?(r.isMac=!0,r.osVersion=this.getFirstMatch(/mac os x (\\'+
-'d+(\\.?_?\\d+)+)/i,t).replace(/[_\\s]/g,".")):/(ipod|iphone|ipad)/i.test(t)&&(r.isIOS=!0,r.osVersion=this.getFirstMatch(/os'+
-' (\\d+([_\\s]\\d+)*) like mac os x/i,t).replace(/[_\\s]/g,".")),/safari/i.test(t)&&!/chrom(e|ium)/i.test(t)&&(r.isSafari=!0,'+
-'r.safariVersion=this.getFirstMatch(/version\\/(\\d+(\\.?_?\\d+)+)/i,t).replace(/[_\\s]/g,".")),r)}static isITP_2_1(t){if("str'+
-'ing"!=typeof t)return!1;const r=this.getTargetPlatform(t);try{if(r.isIOS&&null!==r.osVersion&&n(r.osVersion,"12.2")>=0)r'+
-'eturn!0;if(r.isMac&&r.isSafari&&null!==r.safariVersion&&n(r.safariVersion,"12.1")>=0)return!0}catch(t){return!1}return!1'+
-'}}}]).default;');
+'")}function i(t,i){[t,i].forEach(n);for(var o=r(t),a=r(i),s=0;s<Math.max(o.length-1,a.length-1);s++){var u=parseInt(o[s]'+
+'||0,10),f=parseInt(a[s]||0,10);if(u>f)return 1;if(f>u)return-1}var c=o[o.length-1],l=a[a.length-1];if(c&&l){var p=c.spli'+
+'t(".").map(e),d=l.split(".").map(e);for(s=0;s<Math.max(p.length,d.length);s++){if(void 0===p[s]||"string"==typeof d[s]&&'+
+'"number"==typeof p[s])return-1;if(void 0===d[s]||"string"==typeof p[s]&&"number"==typeof d[s])return 1;if(p[s]>d[s])retu'+
+'rn 1;if(d[s]>p[s])return-1}}else if(c||l)return c?-1:1;return 0}var o=[">",">=","=","<","<="],a={">":[1],">=":[0,1],"=":'+
+'[0],"<=":[-1,0],"<":[-1]};return i.compare=function(t,r,e){!function(t){if("string"!=typeof t)throw new TypeError("Inval'+
+'id operator type, expected string but got "+typeof t);if(-1===o.indexOf(t))throw new TypeError("Invalid operator, expect'+
+'ed one of "+o.join("|"))}(e);var n=i(t,r);return a[e].indexOf(n)>-1},i})?n.apply(r,i):n)||(t.exports=o)},function(t,r,e)'+
+'{"use strict";e.r(r);var n=e(0);r.default=class{static getFirstMatch(t,r){if("string"!=typeof r)return"";const e=r.match'+
+'(t);return e&&e.length>0&&e[1]||""}static getTargetPlatform(t){const r={isIOS:!1,isMac:!1,osVersion:null,isSafari:!1,saf'+
+'ariVersion:null};return"string"!=typeof t?r:(/macintosh/i.test(t)?(r.isMac=!0,r.osVersion=this.getFirstMatch(/mac os x ('+
+'\\d+(\\.?_?\\d+)+)/i,t).replace(/[_\\s]/g,".")):/(ipod|iphone|ipad)/i.test(t)&&(r.isIOS=!0,r.osVersion=this.getFirstMatch(/o'+
+'s (\\d+([_\\s]\\d+)*) like mac os x/i,t).replace(/[_\\s]/g,".")),/safari/i.test(t)&&!/chrom(e|ium)/i.test(t)&&(r.isSafari=!0'+
+',r.safariVersion=this.getFirstMatch(/version\\/(\\d+(\\.?_?\\d+)+)/i,t).replace(/[_\\s]/g,".")),r)}static isITP_2_1(t){if("st'+
+'ring"!=typeof t)return!1;const r=this.getTargetPlatform(t);try{if(r.isIOS&&null!==r.osVersion&&n(r.osVersion,"12.2")>=0)'+
+'return!0;if(r.isMac&&r.isSafari&&null!==r.safariVersion&&n(r.safariVersion,"12.1")>=0)return!0}catch(t){return!1}return!'+
+'1}}}]).default;');
+global.ITPTargetDetector = ITPTargetDetector;
