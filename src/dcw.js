@@ -10,6 +10,7 @@ class DocumentCookieWatcher extends EventTarget {
     interval = 1000,
     leading = false,
     trailing = true,
+    timeout = 0,
   } = {}) {
     super();
     this.debug = debug;
@@ -22,12 +23,13 @@ class DocumentCookieWatcher extends EventTarget {
 
     const onDocumentCookieSet = throttle(handler, this.interval, {
       leading: leading,
-      trailing: trailing
+      trailing: trailing,
     });
-    this.addEventListener('DocumentCookieSet', (e) => {
+    this.addEventListener('DocumentCookieSet', e => {
       this.log('DocumentCookieSet event', e.detail);
       onDocumentCookieSet(this, e);
     });
+    this.timeout = timeout;
     this.log('created', {
       descriptor: this.descriptor,
       debug: this.debug,
@@ -35,6 +37,7 @@ class DocumentCookieWatcher extends EventTarget {
       interval: this.interval,
       leading: this.leading,
       trailing: this.trailing,
+      timeout: this.timeout,
     });
   }
 
@@ -59,22 +62,39 @@ class DocumentCookieWatcher extends EventTarget {
       return;
     }
 
+    this.startAt = new Date();
+
     Object.defineProperty(document, 'cookie', {
       configurable: true,
       enumerable: true,
       get: () => {
         return this.descriptor.get.call(document);
       },
-      set: (value) => {
+      set: value => {
         this.descriptor.set.call(document, value);
         this.log('document.cookie set', value);
+
         this.rawCookies.push(value);
-        this.dispatchEvent(new CustomEvent('DocumentCookieSet', {
-          detail: {
-            rawCookie: value,
+
+        if (this.timeout > 0) {
+          const now = new Date();
+          const diff = now.getTime() - this.startAt.getTime();
+          const elapsed = diff / 1000;
+          if (elapsed >= this.timeout) {
+            this.log('timed out');
+            this.disable();
+            return;
           }
-        }));
-      }
+        }
+
+        this.dispatchEvent(
+          new CustomEvent('DocumentCookieSet', {
+            detail: {
+              rawCookie: value,
+            },
+          })
+        );
+      },
     });
 
     this.enabled = true;
@@ -98,9 +118,9 @@ class DocumentCookieWatcher extends EventTarget {
       get: () => {
         return this.descriptor.get.call(document);
       },
-      set: (value) => {
+      set: value => {
         this.descriptor.set.call(document, value);
-      }
+      },
     });
 
     this.enabled = false;

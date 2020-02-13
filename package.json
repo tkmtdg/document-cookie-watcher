@@ -5,16 +5,27 @@
   "main": "dcw.js",
   "scripts": {
     "clean": "rm -rf ./dist/*",
-    "test": "jest --watch",
+    "format": "prettier-eslint --write './src/**/*.js' --write './test/**/*.js'",
+    "test": "jest",
     "build": "npm run clean && webpack && npm run gtmify",
     "gtmify": "./gtmify.sh"
+  },
+  "prettier": {
+    "printWidth": 80,
+    "tabWidth": 2,
+    "singleQuote": true,
+    "trailingComma": "es5",
+    "bracketSpacing": true,
+    "semi": true,
+    "useTabs": false
   },
   "jest": {
     "verbose": true,
     "setupFiles": [
       "<rootDir>/dist/dcw.gtm.js",
       "<rootDir>/dist/itptd.gtm.js"
-    ]
+    ],
+    "collectCoverage": true
   },
   "author": "tkmtdg <tkmtdg@gmail.com>",
   "license": "MIT",
@@ -32,7 +43,12 @@
     "babel-loader": "^8.0.6",
     "babel-plugin-syntax-dynamic-import": "^6.18.0",
     "eslint": "^5.16.0",
+    "eslint-config-google": "^0.14.0",
+    "eslint-config-prettier": "^6.10.0",
+    "eslint-plugin-jest": "^23.7.0",
     "jest": "^24.9.0",
+    "prettier-eslint": "^9.0.1",
+    "prettier-eslint-cli": "^5.0.0",
     "webpack": "^4.41.5",
     "webpack-cli": "^3.3.10"
   }

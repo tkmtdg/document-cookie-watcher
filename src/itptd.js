@@ -2,7 +2,7 @@ import * as compareVersions from 'compare-versions';
 
 class ITPTargetDetector {
   static getFirstMatch(re, s) {
-    if (typeof (s) !== 'string') {
+    if (typeof s !== 'string') {
       return '';
     }
     const match = s.match(re);
@@ -18,35 +18,37 @@ class ITPTargetDetector {
       safariVersion: null,
     };
 
-    if (typeof (ua) !== 'string') {
+    if (typeof ua !== 'string') {
       return platform;
     }
 
-    if (
-      /macintosh/i.test(ua)
-    ) {
+    if (/macintosh/i.test(ua)) {
       platform.isMac = true;
-      platform.osVersion = this.getFirstMatch(/mac os x (\d+(\.?_?\d+)+)/i, ua).replace(/[_\s]/g, '.');
-    } else if (
-      /(ipod|iphone|ipad)/i.test(ua)
-    ) {
+      platform.osVersion = this.getFirstMatch(
+        /mac os x (\d+(\.?_?\d+)+)/i,
+        ua
+      ).replace(/[_\s]/g, '.');
+    } else if (/(ipod|iphone|ipad)/i.test(ua)) {
       platform.isIOS = true;
-      platform.osVersion = this.getFirstMatch(/os (\d+([_\s]\d+)*) like mac os x/i, ua).replace(/[_\s]/g, '.');
+      platform.osVersion = this.getFirstMatch(
+        /os (\d+([_\s]\d+)*) like mac os x/i,
+        ua
+      ).replace(/[_\s]/g, '.');
     }
 
-    if (
-      /safari/i.test(ua) &&
-      !/chrom(e|ium)/i.test(ua)
-    ) {
+    if (/safari/i.test(ua) && !/chrom(e|ium)/i.test(ua)) {
       platform.isSafari = true;
-      platform.safariVersion = this.getFirstMatch(/version\/(\d+(\.?_?\d+)+)/i, ua).replace(/[_\s]/g, '.');
+      platform.safariVersion = this.getFirstMatch(
+        /version\/(\d+(\.?_?\d+)+)/i,
+        ua
+      ).replace(/[_\s]/g, '.');
     }
 
     return platform;
   }
 
   static isITP_2_1(ua) {
-    if (typeof (ua) !== 'string') {
+    if (typeof ua !== 'string') {
       return false;
     }
 

@@ -28,4 +28,3 @@ eval('var ITPTargetDetector=function(t){var r={};function e(n){if(r[n])return r[
 'ring"!=typeof t)return!1;const r=this.getTargetPlatform(t);try{if(r.isIOS&&null!==r.osVersion&&n(r.osVersion,"12.2")>=0)'+
 'return!0;if(r.isMac&&r.isSafari&&null!==r.safariVersion&&n(r.safariVersion,"12.1")>=0)return!0}catch(t){return!1}return!'+
 '1}}}]).default;');
-global.ITPTargetDetector = ITPTargetDetector;
