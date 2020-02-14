@@ -1,5 +1,6 @@
 import EventTarget from '@ungap/event-target';
 import throttle from 'lodash.throttle';
+import uniq from 'lodash.uniq';
 
 class DocumentCookieWatcher extends EventTarget {
   constructor({
@@ -14,14 +15,17 @@ class DocumentCookieWatcher extends EventTarget {
   } = {}) {
     super();
     this.debug = debug;
+    this.handler = handler;
     this.interval = interval;
+    this.leading = leading;
+    this.trailing = trailing;
     this.enabled = false;
     this.rawCookies = [];
     this.descriptor =
       Object.getOwnPropertyDescriptor(Document.prototype, 'cookie') ||
       Object.getOwnPropertyDescriptor(HTMLDocument.prototype, 'cookie');
 
-    const onDocumentCookieSet = throttle(handler, this.interval, {
+    const onDocumentCookieSet = throttle(this.handler, this.interval, {
       leading: leading,
       trailing: trailing,
     });
@@ -48,7 +52,9 @@ class DocumentCookieWatcher extends EventTarget {
   }
 
   configurable() {
-    return this.descriptor && this.descriptor.configurable;
+    return (
+      typeof this.descriptor !== 'undefined' && this.descriptor.configurable
+    );
   }
 
   enable() {
@@ -127,10 +133,10 @@ class DocumentCookieWatcher extends EventTarget {
     this.log('disabled');
   }
 
-  flush() {
-    const rawCookies = this.rawCookies;
+  flush({ unique = false } = {}) {
+    const rawCookies = unique ? uniq(this.rawCookies) : this.rawCookies;
     this.rawCookies = [];
-    this.log('flush', rawCookies);
+    this.log('flush', 'unique-mode:' + unique, rawCookies);
     return {
       rawCookies: rawCookies,
     };

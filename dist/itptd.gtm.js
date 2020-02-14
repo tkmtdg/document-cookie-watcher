@@ -133,3 +133,4 @@ eval('var ITPTargetDetector=function(t){var r={};function n(e){if(r[e])return r[
 '=n(15),o=n(11);t.exports=function(t,r){var n=t.exec;if("function"==typeof n){var i=n.call(t,r);if("object"!=typeof i)thr'+
 'ow TypeError("RegExp exec method returned something other than an Object or null");return i}if("RegExp"!==e(t))throw Typ'+
 'eError("RegExp#exec called on incompatible receiver");return o.call(t,r)}}]).default;');
+if (global) { global.ITPTargetDetector = ITPTargetDetector; }
