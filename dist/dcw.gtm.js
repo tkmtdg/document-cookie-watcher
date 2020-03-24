@@ -32,27 +32,27 @@ eval('var DocumentCookieWatcher=function(t){var e={};function n(r){if(e[r])retur
 'o["__core-js_shared__"],v=(f=/[^.]+$/.exec(g&&g.keys&&g.keys.IE_PROTO||""))?"Symbol(src)_1."+f:"",_=d.toString,y=p.hasOw'+
 'nProperty,b=p.toString,m=RegExp("^"+_.call(y).replace(/[\\\\^$.*+?()[\\]{}|]/g,"\\\\$&").replace(/hasOwnProperty|(function).*'+
 '?(?=\\\\\\()| for .+?(?=\\\\\\])/g,"$1.*?")+"$"),j=h.splice,w=M(o,"Map"),O=M(o,"Set"),k=M(Object,"create");function E(t){var e'+
-'=-1,n=t?t.length:0;for(this.clear();++e<n;){var r=t[e];this.set(r[0],r[1])}}function T(t){var e=-1,n=t?t.length:0;for(th'+
-'is.clear();++e<n;){var r=t[e];this.set(r[0],r[1])}}function x(t){var e=-1,n=t?t.length:0;for(this.clear();++e<n;){var r='+
-'t[e];this.set(r[0],r[1])}}function S(t){var e=-1,n=t?t.length:0;for(this.__data__=new x;++e<n;)this.add(t[e])}function C'+
-'(t,e){for(var n,r,i=t.length;i--;)if((n=t[i][0])===(r=e)||n!=n&&r!=r)return i;return-1}function P(t){return!(!F(t)||(e=t'+
-',v&&v in e))&&(function(t){var e=F(t)?b.call(t):"";return"[object Function]"==e||"[object GeneratorFunction]"==e}(t)||fu'+
+'=-1,n=t?t.length:0;for(this.clear();++e<n;){var r=t[e];this.set(r[0],r[1])}}function x(t){var e=-1,n=t?t.length:0;for(th'+
+'is.clear();++e<n;){var r=t[e];this.set(r[0],r[1])}}function T(t){var e=-1,n=t?t.length:0;for(this.clear();++e<n;){var r='+
+'t[e];this.set(r[0],r[1])}}function S(t){var e=-1,n=t?t.length:0;for(this.__data__=new T;++e<n;)this.add(t[e])}function C'+
+'(t,e){for(var n,r,i=t.length;i--;)if((n=t[i][0])===(r=e)||n!=n&&r!=r)return i;return-1}function P(t){return!(!A(t)||(e=t'+
+',v&&v in e))&&(function(t){var e=A(t)?b.call(t):"";return"[object Function]"==e||"[object GeneratorFunction]"==e}(t)||fu'+
 'nction(t){var e=!1;if(null!=t&&"function"!=typeof t.toString)try{e=!!(t+"")}catch(t){}return e}(t)?m:n).test(function(t)'+
 '{if(null!=t){try{return _.call(t)}catch(t){}try{return t+""}catch(t){}}return""}(t));var e}E.prototype.clear=function(){'+
 'this.__data__=k?k(null):{}},E.prototype.delete=function(t){return this.has(t)&&delete this.__data__[t]},E.prototype.get='+
 'function(t){var e=this.__data__;if(k){var n=e[t];return"__lodash_hash_undefined__"===n?void 0:n}return y.call(e,t)?e[t]:'+
 'void 0},E.prototype.has=function(t){var e=this.__data__;return k?void 0!==e[t]:y.call(e,t)},E.prototype.set=function(t,e'+
-'){return this.__data__[t]=k&&void 0===e?"__lodash_hash_undefined__":e,this},T.prototype.clear=function(){this.__data__=['+
-']},T.prototype.delete=function(t){var e=this.__data__,n=C(e,t);return!(n<0)&&(n==e.length-1?e.pop():j.call(e,n,1),!0)},T'+
-'.prototype.get=function(t){var e=this.__data__,n=C(e,t);return n<0?void 0:e[n][1]},T.prototype.has=function(t){return C('+
-'this.__data__,t)>-1},T.prototype.set=function(t,e){var n=this.__data__,r=C(n,t);return r<0?n.push([t,e]):n[r][1]=e,this}'+
-',x.prototype.clear=function(){this.__data__={hash:new E,map:new(w||T),string:new E}},x.prototype.delete=function(t){retu'+
-'rn $(this,t).delete(t)},x.prototype.get=function(t){return $(this,t).get(t)},x.prototype.has=function(t){return $(this,t'+
-').has(t)},x.prototype.set=function(t,e){return $(this,t).set(t,e),this},S.prototype.add=S.prototype.push=function(t){ret'+
+'){return this.__data__[t]=k&&void 0===e?"__lodash_hash_undefined__":e,this},x.prototype.clear=function(){this.__data__=['+
+']},x.prototype.delete=function(t){var e=this.__data__,n=C(e,t);return!(n<0)&&(n==e.length-1?e.pop():j.call(e,n,1),!0)},x'+
+'.prototype.get=function(t){var e=this.__data__,n=C(e,t);return n<0?void 0:e[n][1]},x.prototype.has=function(t){return C('+
+'this.__data__,t)>-1},x.prototype.set=function(t,e){var n=this.__data__,r=C(n,t);return r<0?n.push([t,e]):n[r][1]=e,this}'+
+',T.prototype.clear=function(){this.__data__={hash:new E,map:new(w||x),string:new E}},T.prototype.delete=function(t){retu'+
+'rn $(this,t).delete(t)},T.prototype.get=function(t){return $(this,t).get(t)},T.prototype.has=function(t){return $(this,t'+
+').has(t)},T.prototype.set=function(t,e){return $(this,t).set(t,e),this},S.prototype.add=S.prototype.push=function(t){ret'+
 'urn this.__data__.set(t,"__lodash_hash_undefined__"),this},S.prototype.has=function(t){return this.__data__.has(t)};var '+
 'D=O&&1/l(new O([,-0]))[1]==1/0?function(t){return new O(t)}:function(){};function $(t,e){var n,r,i=t.__data__;return("st'+
 'ring"==(r=typeof(n=e))||"number"==r||"symbol"==r||"boolean"==r?"__proto__"!==n:null===n)?i["string"==typeof e?"string":"'+
-'hash"]:i.map}function M(t,e){var n=function(t,e){return null==t?void 0:t[e]}(t,e);return P(n)?n:void 0}function F(t){var'+
+'hash"]:i.map}function M(t,e){var n=function(t,e){return null==t?void 0:t[e]}(t,e);return P(n)?n:void 0}function A(t){var'+
 ' e=typeof t;return!!t&&("object"==e||"function"==e)}t.exports=function(t){return t&&t.length?function(t,e,n){var r=-1,i='+
 'u,o=t.length,s=!0,f=[],h=f;if(n)s=!1,i=a;else if(o>=200){var d=e?null:D(t);if(d)return l(d);s=!1,i=c,h=new S}else h=e?[]'+
 ':f;t:for(;++r<o;){var p=t[r],g=e?e(p):p;if(p=n||0!==p?p:0,s&&g==g){for(var v=h.length;v--;)if(h[v]===g)continue t;e&&h.p'+
@@ -82,6 +82,8 @@ eval('var DocumentCookieWatcher=function(t){var e={};function n(r){if(e[r])retur
 'okieSet",{detail:{rawCookie:t}}))}}),this.enabled=!0,this.log("enabled")):this.log("document.cookie not configurable")}d'+
 'isable(){this.configurable()?this.enabled?(Object.defineProperty(document,"cookie",{configurable:!0,enumerable:!0,get:()'+
 '=>this.descriptor.get.call(document),set:t=>{this.descriptor.set.call(document,t)}}),this.enabled=!1,this.log("disabled"'+
-')):this.log("already disabled"):this.log("document.cookie not configurable")}flush({unique:t=!1}={}){const e=t?s()(this.'+
-'rawCookies):this.rawCookies;return this.rawCookies=[],this.log("flush","unique-mode:"+t,e),{rawCookies:e}}}}]).default;');
+')):this.log("already disabled"):this.log("document.cookie not configurable")}flush({filters:t=[]}={}){const e=this.rawCo'+
+'okies;this.rawCookies=[];const n=s()(e),r=[];n.forEach(e=>{if(-1===e.indexOf("="))return;const n=e.trim();if(/(\\r\\n|\\r|\\'+
+'n)/.test(n))return;const i=n.split("=")[0];Array.isArray(t)&&t.length>0&&!t.includes(i)||r.push(n)});const i={rawCookies'+
+':e,filteredCookies:r};return this.log("flush",i),i}}}]).default;');
 if (global) { global.DocumentCookieWatcher = DocumentCookieWatcher; }

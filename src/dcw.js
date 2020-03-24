@@ -133,13 +133,35 @@ class DocumentCookieWatcher extends EventTarget {
     this.log('disabled');
   }
 
-  flush({ unique = false } = {}) {
-    const rawCookies = unique ? uniq(this.rawCookies) : this.rawCookies;
+  flush({ filters = [] } = {}) {
+    const rawCookies = this.rawCookies;
     this.rawCookies = [];
-    this.log('flush', 'unique-mode:' + unique, rawCookies);
-    return {
+    const uniqueCookies = uniq(rawCookies);
+    const filteredCookies = [];
+    uniqueCookies.forEach(rawCookie => {
+      if (rawCookie.indexOf('=') === -1) {
+        return;
+      }
+      const trimmed = rawCookie.trim();
+      if (/(\r\n|\r|\n)/.test(trimmed)) {
+        return;
+      }
+      const cookieName = trimmed.split('=')[0];
+      if (
+        Array.isArray(filters) &&
+        filters.length > 0 &&
+        !filters.includes(cookieName)
+      ) {
+        return;
+      }
+      filteredCookies.push(trimmed);
+    });
+    const result = {
       rawCookies: rawCookies,
+      filteredCookies: filteredCookies,
     };
+    this.log('flush', result);
+    return result;
   }
 }
 
