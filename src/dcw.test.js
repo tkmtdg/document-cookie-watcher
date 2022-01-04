@@ -5,30 +5,20 @@ global.document = dom.window.document;
 global.window = dom.window;
 
 test('newable', () => {
-  var dcw = new DocumentCookieWatcher();
+  const dcw = new DocumentCookieWatcher();
   expect(dcw).toBeDefined();
 });
 
 test('configurable', () => {
-  const document = {
-    cookie: x => x,
-  };
-  const spy = jest.spyOn(document, 'cookie');
-  spy.mockImplementation(x => x);
-
-  var dcw = new DocumentCookieWatcher();
-
+  const dcw = new DocumentCookieWatcher();
   expect(dcw.configurable()).toBe(true);
 
   dcw.descriptor.configurable = false;
   expect(dcw.configurable()).toBe(false);
-
-  spy.mockReset();
-  spy.mockRestore();
 });
 
 test('defaults', () => {
-  var dcw = new DocumentCookieWatcher();
+  const dcw = new DocumentCookieWatcher();
   expect(dcw.debug).toBe(false);
 
   const spy = jest.spyOn(console, 'log');
@@ -52,7 +42,7 @@ test('log', () => {
   const spy = jest.spyOn(console, 'log');
   spy.mockImplementation(x => x);
 
-  var dcw = new DocumentCookieWatcher({
+  const dcw = new DocumentCookieWatcher({
     debug: true,
   });
 
@@ -67,23 +57,50 @@ test('log', () => {
 });
 
 test('enable', () => {
-  var dcw = new DocumentCookieWatcher();
+  const spy = jest.fn();
+
+  const dcw = new DocumentCookieWatcher();
+  dcw.log = spy;
+
   dcw.enable();
   expect(dcw.enabled).toBe(true);
+  expect(spy.mock.calls[0].join(' ')).toBe('enabled');
+
+  dcw.enable();
+  expect(spy.mock.calls[1].join(' ')).toBe('already enabled');
+  
+  dcw.descriptor.configurable = false;
+  dcw.enable();
+  expect(spy.mock.calls[2].join(' ')).toBe('document.cookie not configurable');
+
   global.document.cookie = 'aaa=bbb';
   expect(global.document.cookie).toBe('aaa=bbb');
 });
 
 test('disable', () => {
-  var dcw = new DocumentCookieWatcher();
+  const spy = jest.fn();
+
+  const dcw = new DocumentCookieWatcher();
+  dcw.log = spy;
+
   dcw.enable();
   dcw.disable();
   expect(dcw.enabled).toBe(false);
+  expect(spy.mock.calls[1].join(' ')).toBe('disabled');
+
   dcw.disable();
+  expect(spy.mock.calls[2].join(' ')).toBe('already disabled');
+
+  dcw.descriptor.configurable = false;
+  dcw.disable();
+  expect(spy.mock.calls[3].join(' ')).toBe('document.cookie not configurable');
+
+  global.document.cookie = 'aaa=bbb';
+  expect(global.document.cookie).toBe('aaa=bbb');
 });
 
 test('flush', () => {
-  var dcw = new DocumentCookieWatcher();
+  const dcw = new DocumentCookieWatcher();
   dcw.rawCookies = [
     'aaa=bbb',
     'aaa=bbb',
@@ -98,4 +115,27 @@ test('flush', () => {
 
   const result = dcw.flush({ filters: ['ccc', 'ggg'] });
   expect(result.filteredCookies).toStrictEqual(['ccc=ddd', 'ggg=hhh']);
+});
+
+test('DocumentCookieSet', () => {
+  const spyDispatchEvent = jest.fn();
+
+  const dcw = new DocumentCookieWatcher();
+  dcw.enable();
+  dcw.dispatchEvent = spyDispatchEvent;
+  global.document.cookie = 'aaa=bbb';
+
+  expect(spyDispatchEvent.mock.calls.length).toBe(1);
+  expect(spyDispatchEvent.mock.calls[0][0].type).toBe('DocumentCookieSet');
+  expect(spyDispatchEvent.mock.calls[0][0].detail).toStrictEqual({
+    rawCookie: 'aaa=bbb',
+  });
+});
+
+test('timeout', () => {
+  const dcw = new DocumentCookieWatcher({timeout:1});
+  dcw.enable();
+
+  global.document.cookie = 'aaa=bbb';
+  
 });
